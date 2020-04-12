@@ -22,14 +22,21 @@ class _MainPagePostState extends State<MainPagePost> {
         child: Stack(
           children: <Widget>[
             Container(
-              child: Image.asset(widget.imagePath),
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(8.0)),
+              
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(25.0),
+                child: Image.asset(
+                  widget.imagePath,
+                  height: 200.0,
+                  fit: BoxFit.fill,
+                ),
+              ),
             ),
             Positioned(
               child: SafeArea(
                 child: Text(
                   widget.title,
+                  textDirection: TextDirection.rtl,
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
@@ -39,7 +46,8 @@ class _MainPagePostState extends State<MainPagePost> {
             Positioned(
               child: Text(
                 widget.date + "-" + widget.category,
-                style: TextStyle(color: Colors.white, fontSize: 10),
+                textDirection: TextDirection.rtl,
+                style: TextStyle(color: Colors.white, fontSize: 12),
               ),
               bottom: 5,
               right: 10,

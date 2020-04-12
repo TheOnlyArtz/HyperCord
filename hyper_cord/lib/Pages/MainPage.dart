@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hyper_cord/Elements/HyperCordBar.dart';
+import 'package:hyper_cord/Elements/HyperCordAppBar.dart';
 import 'package:hyper_cord/Elements/MainPagePost.dart';
 
 class MainPage extends StatefulWidget {

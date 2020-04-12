@@ -51,8 +51,7 @@ class HyperCordBar extends StatelessWidget {
           flex: 20,
         ),
         Image.asset(
-          "assets/images/logo.gif", 
-           
+          "assets/images/logo.gif",
         ),
         Expanded(
           child: Container(),
@@ -60,7 +59,7 @@ class HyperCordBar extends StatelessWidget {
         ),
       ],
       floating: true,
-      snap: true,
+      snap: false,
       pinned: true,
     );
   }
@@ -69,22 +68,28 @@ class HyperCordBar extends StatelessWidget {
 class WavyHeaderImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ClipPath(
-      child: ShaderMask(
-          shaderCallback: (Rect bounds) {
-            return LinearGradient(
-              colors: [
-                Color.fromRGBO(77, 9, 24, 1),
-                Color.fromRGBO(79, 55, 172, 1)
-              ],
-            ).createShader(bounds);
-          },
-          child: Image.network(
-            'https://i.imgur.com/OEc5ZuI.jpg?1',
-            fit: BoxFit.cover,
-          ),
-          blendMode: BlendMode.color),
-      clipper: BottomWaveClipper(),
+    return Stack(
+      textDirection: TextDirection.rtl,
+      children: <Widget>[
+        ClipPath(
+          child: ShaderMask(
+              shaderCallback: (Rect bounds) {
+                return LinearGradient(
+                  colors: [
+                    Color.fromRGBO(77, 9, 24, 1),
+                    Color.fromRGBO(79, 55, 172, 1)
+                  ],
+                ).createShader(bounds);
+              },
+              child: Image.network(
+                'https://i.imgur.com/OEc5ZuI.jpg?1',
+                fit: BoxFit.cover,
+                height: 250,
+              ),
+              blendMode: BlendMode.color),
+          clipper: BottomWaveClipper(),
+        ),
+      ],
     );
   }
 }
