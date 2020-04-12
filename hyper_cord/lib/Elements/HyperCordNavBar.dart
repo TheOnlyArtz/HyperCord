@@ -19,42 +19,47 @@ class _HyperCordNavBarState extends State<HyperCordNavBar> {
     final _pageController = PageController();
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
-        key: _bottomNavigationKey,
-        items: <Widget>[
-          Icon(FontAwesomeIcons.home, size: 25, color: Colors.red[700]),
-          Icon(FontAwesomeIcons.newspaper, size: 25, color: Colors.red[700],),
-          Icon(FontAwesomeIcons.plus, size: 25, color: Colors.red[700]),
-          Icon(FontAwesomeIcons.cogs, size: 25, color: Colors.red[700]),
-          Icon(FontAwesomeIcons.user, size: 25, color: Colors.red[700]),
-        ],
-        height: 55,
-        animationDuration: Duration(milliseconds: 250),
-        animationCurve: Curves.easeIn,
-        color: Color(0xff0f172d),
-        backgroundColor: Color(0xff272E48),
-        onTap: (int index) {
-          setState(() {
-            _page = index;
-            _pageController.jumpToPage(index);
-          });
-        }
-      ),
+          key: _bottomNavigationKey,
+          items: <Widget>[
+            Icon(FontAwesomeIcons.home, size: 25, color: Colors.red[700]),
+            Icon(
+              FontAwesomeIcons.newspaper,
+              size: 25,
+              color: Colors.red[700],
+            ),
+            Icon(FontAwesomeIcons.plus, size: 25, color: Colors.red[700]),
+            Icon(FontAwesomeIcons.cogs, size: 25, color: Colors.red[700]),
+            Icon(FontAwesomeIcons.user, size: 25, color: Colors.red[700]),
+          ],
+          height: 55,
+          animationDuration: Duration(milliseconds: 250),
+          animationCurve: Curves.easeIn,
+          color: Color(0xff0f172d),
+          backgroundColor: Color(0xff272E48),
+          onTap: (int index) {
+            setState(() {
+              _page = index;
+              _pageController.jumpToPage(index);
+            });
+          }),
       body: PageView(
-            controller: _pageController,
-            children: <Widget>[
-              MainPage(),
-              Scaffold(),
-              Scaffold(),
-            ],
-
-            onPageChanged: (int index) {
-              setState(() {
-                _pageController.jumpToPage(index);
-                final CurvedNavigationBarState navBarState = _bottomNavigationKey.currentState;
-                navBarState.setPage(index);
-              });
-            },
-        ),
+        controller: _pageController,
+        children: <Widget>[
+          MainPage(),
+          Scaffold(),
+          Scaffold(),
+          Scaffold(),
+          Scaffold(),
+        ],
+        onPageChanged: (int index) {
+          setState(() {
+            _pageController.jumpToPage(index);
+            final CurvedNavigationBarState navBarState =
+                _bottomNavigationKey.currentState;
+            navBarState.setPage(index);
+          });
+        },
+      ),
     );
   }
 }

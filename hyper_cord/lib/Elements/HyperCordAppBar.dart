@@ -1,13 +1,21 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hyper_cord/Pages/ProfilePage.dart';
 
-class HyperCordBar extends StatelessWidget {
-  const HyperCordBar({
+class HyperCordBar extends StatefulWidget {
+  final bool
+      shift; // this shifts the buttons to the right to leave space for the return button.
+  HyperCordBar({
+    this.shift: false,
     Key key,
   }) : super(key: key);
 
+  @override
+  _HyperCordBarState createState() => _HyperCordBarState();
+}
+
+class _HyperCordBarState extends State<HyperCordBar> {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
@@ -18,24 +26,42 @@ class HyperCordBar extends StatelessWidget {
         background: WavyHeaderImage(),
       ),
       actions: <Widget>[
+        this.widget.shift
+            ? Expanded(
+                child: Container(),
+                flex: 20,
+              )
+            : Expanded(
+                child: Container(),
+                flex: 0,
+              ),
         Tooltip(
             message: "חיפוש",
             child: IconButton(
               icon: Icon(Icons.search),
-              onPressed: () {},
+              onPressed: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Scaffold())),
             )),
         Tooltip(
             message: "מה חדש",
             child: IconButton(
-                icon: Icon(FontAwesomeIcons.bolt), onPressed: () {})),
+                icon: Icon(FontAwesomeIcons.bolt),
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Scaffold())))),
         Tooltip(
-            message: "התראות",
-            child: IconButton(
-                icon: Icon(FontAwesomeIcons.bell), onPressed: () {})),
+          message: "התראות",
+          child: IconButton(
+              icon: Icon(FontAwesomeIcons.bell),
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Scaffold()))),
+        ),
         Tooltip(
-            message: "שיחות",
-            child: IconButton(
-                icon: Icon(FontAwesomeIcons.envelope), onPressed: () {})),
+          message: "שיחות",
+          child: IconButton(
+              icon: Icon(FontAwesomeIcons.envelope),
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Scaffold()))),
+        ),
         IconButton(
             icon: ClipOval(
               child: Image.network(
@@ -45,7 +71,8 @@ class HyperCordBar extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            onPressed: () {}),
+            onPressed: () => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ProfilePage()))),
         Expanded(
           child: Container(),
           flex: 20,

@@ -24,6 +24,7 @@ class _PagesState extends State<Pages> {
       theme: ThemeData(
         primaryColor: Color.fromRGBO(39, 46, 72, 1),
       ),
+      
       home: HyperCordNavBar()
       // home: MainPage(),
     );
