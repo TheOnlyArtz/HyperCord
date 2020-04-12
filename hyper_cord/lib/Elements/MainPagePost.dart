@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hyper_cord/Pages/MainPage.dart';
 
@@ -27,11 +28,7 @@ class _MainPagePostState extends State<MainPagePost> {
               Container(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(25.0),
-                  child: Image.asset(
-                    widget.imagePath,
-                    height: 200.0,
-                    fit: BoxFit.fill,
-                  ),
+                  child: Image(image: CachedNetworkImageProvider(widget.imagePath))
                 ),
               ),
               Positioned(

@@ -1,11 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:hyper_cord/Elements/HyperCordNavBar.dart';
 import 'package:hyper_cord/Pages/MainPage.dart';
+import 'package:hyper_cord/state/actions.dart';
+import 'package:hyper_cord/state/app_state.dart';
+import 'package:hyper_cord/state/middleware.dart';
+import 'package:hyper_cord/state/reducers.dart';
+import 'package:redux/redux.dart';
 
+void main() {
+  final store = new Store<HypercordAppState>(
+    appReducer,
+    initialState: new HypercordAppState(),
+    middleware: [fetchHomePagePostsMiddleware]
+  );
 
-void main() => runApp(Pages());
-
+  store.dispatch(FetchMainPagePostsAction());
+  
+  runApp(Pages(store));
+}
 class Pages extends StatefulWidget {
+  final Store<HypercordAppState> store;
+
+  Pages(this.store);
+
   @override
   _PagesState createState() => _PagesState();
 }
@@ -24,10 +41,8 @@ class _PagesState extends State<Pages> {
       theme: ThemeData(
         primaryColor: Color.fromRGBO(39, 46, 72, 1),
       ),
-      
-      home: HyperCordNavBar()
+      home: HyperCordNavBar(widget.store)
       // home: MainPage(),
     );
   }
 }
-
