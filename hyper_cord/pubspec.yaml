@@ -18,6 +18,9 @@ environment:
 
 dependencies:
   curved_navigation_bar: ^0.3.2 #latest version
+  cached_network_image: ^2.1.0+1
+  redux: ^3.0.0
+  flutter_redux: ^0.5.3
   http: ^0.12.0+4
   yaml: ^2.2.0
   font_awesome_flutter: ^8.5.0
