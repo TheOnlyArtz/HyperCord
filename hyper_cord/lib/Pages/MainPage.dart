@@ -13,7 +13,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
+      backgroundColor: Theme.of(context).primaryColor,
       body: CustomScrollView(
         slivers: <Widget>[
           HyperCordBar(),
