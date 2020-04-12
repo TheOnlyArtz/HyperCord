@@ -16,8 +16,6 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton:
-          IconButton(icon: Icon(FontAwesomeIcons.plus), onPressed: () {}),
       backgroundColor: Theme.of(context).primaryColor,
       body: CustomScrollView(
         slivers: <Widget>[
