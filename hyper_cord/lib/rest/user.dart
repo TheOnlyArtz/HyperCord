@@ -44,6 +44,7 @@ class TUser {
 
   TUser.fromJson(Map<String, dynamic> json)
     : about = json["about"],
+      avatarUrls = json["avatar_urls"],
       alertOptout = json["alert_optout"],
       canBan = json["can_ban"],
       canConverse = json["can_converse"],

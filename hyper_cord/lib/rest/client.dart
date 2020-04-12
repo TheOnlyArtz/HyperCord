@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:hyper_cord/rest/thread.dart';
 import 'package:yaml/yaml.dart';
 import 'package:http/http.dart' as http;
 import './utils.dart';
@@ -27,6 +29,7 @@ class ApiClient {
     };
 
     if (method == "GET") {
+      print(BASE_URL + endpoint);
       return await (client.get(BASE_URL + endpoint, headers: headers));
     }
     
@@ -36,6 +39,7 @@ class ApiClient {
   }
 
   Future<http.Response> get(String endpoint) {
+    print("EXECUTING GET");
     return request("GET", endpoint);
   }
 
@@ -43,11 +47,34 @@ class ApiClient {
     return request("POST", endpoint, getQueryString(body));
   }
 
-  ApiClient() {
-    File config = new File("private/config.yaml");
-    String yamlString = config.readAsStringSync();
-    Map yaml = loadYaml(yamlString);
+  Future<List<TThread>> getHomePagePosts() async {
+    try {
+      var res = await get("/threads");
+      var json = jsonDecode(res.body);
+      List<TThread> list = parseThreadsArray(json["threads"]);
 
-    this.superUserKey = yaml["super-user-token"];
+      return list;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  List<TThread> parseThreadsArray(List<dynamic> arr) {
+    List<TThread> result = List<TThread>();
+
+    for (final s in arr) {
+      result.add(TThread.fromJson(s));
+    }
+
+    return result;
+  }
+
+  ApiClient() {
+    // File config = new File("../../../private/config.yaml");
+    // String yamlString = config.readAsStringSync();
+    // Map yaml = loadYaml(yamlString);
+
+    // this.superUserKey = yaml["super-user-token"];
+    this.superUserKey = "P4wdWwlJmd5OXVXOwIfXEqd5kj6Z77gw";
   }
 }

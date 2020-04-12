@@ -47,7 +47,7 @@ class TThread {
     canSoftDelete = json["can_soft_delete"];
     canHardDelete = json["can_hard_delete"];
     canViewAttachments = json["can_view_attachments"];
-    forum = TNode.fromJson(json["Forum"]);// TODO
+    forum =json["Forum"] != null ? TNode.fromJson(json["Forum"]) : null;// TODO
     threadId = json["thread_id"];
     nodeId = json["node_id"];
     title = json["title"];
