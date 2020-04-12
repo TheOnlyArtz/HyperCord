@@ -27,48 +27,6 @@ class _MainPageState extends State<MainPage> {
   final client = hypercordApi.ApiClient();
 
   _MainPageState() {
-    this.test = getPosts();
-  }
-
-  Future<SliverList> getPosts() async {
-    if (this.cachedSliverData != null) {
-      print("\n\nCACHED!!#!@");
-      return cachedSliverData;
-    }
-    print("BLABLA");
-    var response = await client.get("/forums/2/threads");
-    List<TThread> test  = client.parseThreadsArray(jsonDecode(response.body)["threads"]);
-    List<Widget> postsToDisplay = List<Widget>();
-
-    for (int i = 0; i < 3; i++) {
-      Map<String, dynamic> avatarUrls = test[i]?.user?.avatarUrls;
-      String avatarUri = "";
-      print(test[i].user.avatarUrls);
-      if (avatarUrls == null || avatarUrls["m"] == null) {
-        avatarUri = "https://hypercord.co.il/ams/valorant-משחק-חדש-שמפציץ-בצופים-חדשים-בטוויץ.32/cover-image.png";
-      } else {
-        avatarUri = avatarUrls["l"];
-      }
-
-      print(avatarUri);
-      MainPagePost post = MainPagePost(
-        test[i].title,
-        "2020-24-4",
-        "גיימינג",
-        avatarUri
-      );
-      
-      postsToDisplay.add(post);
-    }
-    this.cachedSliverData =  SliverList(
-      delegate: SliverChildListDelegate([
-        ...postsToDisplay,
-        Container(
-          height: 800,
-        )
-    ]),);
-
-    return cachedSliverData;
   }
 
   @override
@@ -77,21 +35,23 @@ class _MainPageState extends State<MainPage> {
       converter: (store) => store.state,
       builder: (context, posts) {
         List<Widget> postsToDisplay = List<Widget>();
-        for (int i = 0; i < 3; i++) {
-          print(posts.homePageHeaderPosts[i].username);
-          postsToDisplay.add(MainPagePost(
-            posts.homePageHeaderPosts[i].title,
-            "24-4-2003",
-            "GAMING",
-            "https://hypercord.co.il/ams/valorant-משחק-חדש-שמפציץ-בצופים-חדשים-בטוויץ.32/cover-image.png"
-          ));
+        if (posts.homePageHeaderPosts != null) {
+          for (int i = 0; i < 3; i++) {
+            print(posts.homePageHeaderPosts[i].username);
+            postsToDisplay.add(MainPagePost(
+              posts.homePageHeaderPosts[i].title,
+              "24-4-2003",
+              "GAMING",
+              "https://hypercord.co.il/ams/valorant-משחק-חדש-שמפציץ-בצופים-חדשים-בטוויץ.32/cover-image.png"
+            ));
+          }
         }
 
         return Scaffold(
           backgroundColor: Theme.of(context).primaryColor,
           body: CustomScrollView(
             slivers: <Widget>[
-              HyperCordBar(),
+              HyperCordBar(widget.store),
               SliverList(
                 delegate: SliverChildListDelegate([
                   ...postsToDisplay

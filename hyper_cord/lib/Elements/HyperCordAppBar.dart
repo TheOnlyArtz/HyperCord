@@ -1,12 +1,18 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hyper_cord/Pages/ProfilePage.dart';
+import 'package:hyper_cord/state/app_state.dart';
+import 'package:redux/redux.dart';
 
 class HyperCordBar extends StatefulWidget {
+  final Store<HypercordAppState> store;
+
+
   final bool
       shift; // this shifts the buttons to the right to leave space for the return button.
-  HyperCordBar({
+  HyperCordBar(this.store, {
     this.shift: false,
     Key key,
   }) : super(key: key);
@@ -18,77 +24,80 @@ class HyperCordBar extends StatefulWidget {
 class _HyperCordBarState extends State<HyperCordBar> {
   @override
   Widget build(BuildContext context) {
-    return SliverAppBar(
-      elevation: 10,
-      backgroundColor: Theme.of(context).primaryColor,
-      expandedHeight: 250,
-      flexibleSpace: FlexibleSpaceBar(
-        background: WavyHeaderImage(),
-      ),
-      actions: <Widget>[
-        this.widget.shift
-            ? Expanded(
-                child: Container(),
-                flex: 20,
-              )
-            : Expanded(
-                child: Container(),
-                flex: 0,
-              ),
-        Tooltip(
-            message: "חיפוש",
+    return new StoreConnector<HypercordAppState,HypercordAppState>(converter: (store) => store.state,
+    builder: (context, list) {
+      return SliverAppBar(
+        elevation: 10,
+        backgroundColor: Theme.of(context).primaryColor,
+        expandedHeight: 250,
+        flexibleSpace: FlexibleSpaceBar(
+          background: WavyHeaderImage(),
+        ),
+        actions: <Widget>[
+          this.widget.shift
+              ? Expanded(
+                  child: Container(),
+                  flex: 20,
+                )
+              : Expanded(
+                  child: Container(),
+                  flex: 0,
+                ),
+          Tooltip(
+              message: "חיפוש",
+              child: IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () => Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Scaffold())),
+              )),
+          Tooltip(
+              message: "מה חדש",
+              child: IconButton(
+                  icon: Icon(FontAwesomeIcons.bolt),
+                  onPressed: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Scaffold())))),
+          Tooltip(
+            message: "התראות",
             child: IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Scaffold())),
-            )),
-        Tooltip(
-            message: "מה חדש",
-            child: IconButton(
-                icon: Icon(FontAwesomeIcons.bolt),
+                icon: Icon(FontAwesomeIcons.bell),
                 onPressed: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Scaffold())))),
-        Tooltip(
-          message: "התראות",
-          child: IconButton(
-              icon: Icon(FontAwesomeIcons.bell),
-              onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Scaffold()))),
-        ),
-        Tooltip(
-          message: "שיחות",
-          child: IconButton(
-              icon: Icon(FontAwesomeIcons.envelope),
-              onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Scaffold()))),
-        ),
-        IconButton(
-            icon: ClipOval(
-              child: Image.network(
-                "https://cdn.discordapp.com/attachments/590173552599236608/698613632526712832/unknown.png",
-                height: 25,
-                width: 25,
-                fit: BoxFit.cover,
+                    MaterialPageRoute(builder: (context) => Scaffold()))),
+          ),
+          Tooltip(
+            message: "שיחות",
+            child: IconButton(
+                icon: Icon(FontAwesomeIcons.envelope),
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Scaffold()))),
+          ),
+          IconButton(
+              icon: ClipOval(
+                child: Image.network(
+                  "https://cdn.discordapp.com/attachments/590173552599236608/698613632526712832/unknown.png",
+                  height: 25,
+                  width: 25,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ProfilePage()))),
-        Expanded(
-          child: Container(),
-          flex: 20,
-        ),
-        Image.asset(
-          "assets/images/logo.gif",
-        ),
-        Expanded(
-          child: Container(),
-          flex: 5,
-        ),
-      ],
-      floating: true,
-      snap: false,
-      pinned: true,
-    );
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ProfilePage(widget.store)))),
+          Expanded(
+            child: Container(),
+            flex: 20,
+          ),
+          Image.asset(
+            "assets/images/logo.gif",
+          ),
+          Expanded(
+            child: Container(),
+            flex: 5,
+          ),
+        ],
+        floating: true,
+        snap: false,
+        pinned: true,
+      );
+    });
   }
 }
 
