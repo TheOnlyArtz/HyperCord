@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hyper_cord/Elements/HyperCordAppBar.dart';
 import 'package:hyper_cord/Elements/MainPagePost.dart';
+import 'package:hyper_cord/Elements/HyperCordNavBar.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key, this.title}) : super(key: key);

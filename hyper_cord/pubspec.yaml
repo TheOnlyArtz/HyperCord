@@ -17,6 +17,7 @@ environment:
   sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
+  curved_navigation_bar: ^0.3.2 #latest version
   http: ^0.12.0+4
   yaml: ^2.2.0
   font_awesome_flutter: ^8.5.0
