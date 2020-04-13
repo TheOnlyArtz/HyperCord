@@ -1,12 +1,13 @@
 import 'package:bbob_dart/bbob_dart.dart' as bbob;
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:link/link.dart';
 
 class BBCodeCompiler {
   static List<bbob.Node> getAST(String bbcode) {
+    // TODO: deal with attachments
     const validTags = {'b', 'url', "IMG", "B", "CENTER", "SIZE", "ATTACH", "URL"};
     return bbob.parse(bbcode, onError: (msg) {
-      print(msg);
     },
         openTag: "[",
         closeTag: "]",
@@ -22,13 +23,13 @@ class BBCodeCompiler {
     ast.forEach((element) {
       if (element is bbob.Element) {
         // if (element.tag.toLowerCase() == "center") {
-        widgets = parseTagChildren(element.children, element.tag, element);
+        parseTagChildren(element.children, element.tag, element).forEach((elemen) {widgets.add(elemen);});
         // }
       } else {
         widgets.add(TextSpan(text: element.textContent));
       }
     });
-
+    
     return RichText(
       textDirection: TextDirection.rtl,
       textAlign: TextAlign.start,
@@ -54,15 +55,21 @@ class BBCodeCompiler {
               text: element.textContent,
               style: TextStyle(fontWeight: FontWeight.bold)));
         } else if (tag == "IMG") {
-          toReturn.add(WidgetSpan(
-              child: Image.network(
-            element.textContent,
-            width: double.infinity,
-          )));
+            WidgetSpan img = WidgetSpan(
+              child: Image(
+                image: AdvancedNetworkImage(
+                  element.textContent,
+                  useDiskCache: true,
+                  cacheRule: CacheRule(maxAge: const Duration(days: 3)),
+                ),
+                fit: BoxFit.cover
+              )
+            );
+            toReturn.add(img);
           // print(toReturn);
         } else {
-          print(prevElement.attributes);
-          toReturn.add(TextSpan(text: element.textContent));
+          
+          toReturn.add(TextSpan(text: element.textContent, style: TextStyle(color: Colors.white)));
         }
       }
     });
