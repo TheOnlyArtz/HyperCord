@@ -19,6 +19,8 @@ environment:
 dependencies:
   curved_navigation_bar: ^0.3.2 #latest version
   cached_network_image: ^2.1.0+1
+  bbob_dart: ^0.1.1
+  link: ^1.0.0
   splashscreen: ^1.2.0
   mysql1: ^0.17.1
   intl: ^0.16.1
@@ -66,6 +68,10 @@ flutter:
         - asset: assets/fonts/Assistant-Light.ttf
         - asset: assets/fonts/Assistant-Regular.ttf
         - asset: assets/fonts/Assistant-SemiBold.ttf
+    - family: OpenSansHebrew
+      fonts:
+        - asset: assets/fonts/OpenSansHebrew-Bold.ttf
+        - asset: assets/fonts/OpenSansHebrew-Regular.ttf
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

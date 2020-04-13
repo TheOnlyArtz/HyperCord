@@ -4,7 +4,6 @@ import 'package:hyper_cord/Elements/HyperCordAppBar.dart';
 import 'package:hyper_cord/Elements/MainPagePost.dart';
 import 'package:hyper_cord/rest/client.dart' as hypercordApi;
 import 'package:hyper_cord/state/app_state.dart';
-import 'package:intl/intl.dart';
 import 'package:redux/redux.dart';
 import 'package:hyper_cord/Elements/MainPageSign.dart';
 
@@ -34,13 +33,8 @@ class _MainPageState extends State<MainPage> {
         List<Widget> postsToDisplay = List<Widget>();
         if (posts.homePageHeaderPosts != null) {
           for (int i = 0; i < posts.homePageHeaderPosts.length; i++) {
-            var format = DateFormat("dd/MM/yyyy HH:mm");
-            var date =  new DateTime.fromMillisecondsSinceEpoch(posts.homePageHeaderPosts[i].publishDate * 1000);
             postsToDisplay.add(MainPagePost(
-              posts.homePageHeaderPosts[i].title,
-                format.format(date),
-                "GAMING",
-                posts.homePageHeaderPosts[i].thumbnailUrl
+              posts.homePageHeaderPosts[i], widget.store
             ));
           }
         }

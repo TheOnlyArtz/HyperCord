@@ -5,7 +5,6 @@ import 'package:hyper_cord/state/app_state.dart';
 import 'package:redux/redux.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-
 class ProfilePage extends StatefulWidget {
   final Store<HypercordAppState> store;
 
@@ -45,8 +44,16 @@ class _ProfilePageState extends State<ProfilePage> {
                     Column(
                       textDirection: TextDirection.rtl,
                       children: <Widget>[
-                        Text("גיימר חדש", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                        Text("הצטרף: אתמול ב 11:23", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                        Text(
+                          "גיימר חדש",
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "הצטרף: אתמול ב 11:23",
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
                         Text(""),
                         Text(""),
                       ],
