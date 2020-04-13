@@ -25,7 +25,27 @@ class _MainPagePostState extends State<MainPagePost> {
           child: Stack(
             children: <Widget>[
               Container(
-                child:ClipRRect(child: Image(image: CachedNetworkImageProvider(widget.imagePath)),
+                child:ClipRRect(
+                  child: Stack(children: <Widget>[
+                    Image(image: CachedNetworkImageProvider(widget.imagePath), width: 400, height: 200, fit: BoxFit.fill,),
+                      Container(width: 400, height: 200, decoration: BoxDecoration(
+                      color: Colors.black26,
+                      gradient: LinearGradient(
+                        begin: FractionalOffset.topCenter,
+                        end: FractionalOffset.bottomCenter,
+                        colors: [
+                          Color(0xff667eea),
+                          Colors.black,
+                          Color(0xff764ba2),
+                        ],
+                        stops: [
+                          0.0,
+                          0.5,
+                          1.0
+                        ]
+                      )
+                    ),),
+                  ],),
                 borderRadius: BorderRadius.circular(25.0)),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25.0),
@@ -36,11 +56,14 @@ class _MainPagePostState extends State<MainPagePost> {
               ),
               Positioned(
                 child: SafeArea(
-                  child: Text(
-                    widget.title,
-                    textDirection: TextDirection.rtl,
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
+                  child: Container(width: 300, child:
+                    Text(
+                      widget.title,
+                      overflow: TextOverflow.fade,
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
+                  )
                 ),
                 bottom: 15,
                 right: 10,

@@ -32,8 +32,6 @@ class _MainPageState extends State<MainPage> {
         List<Widget> postsToDisplay = List<Widget>();
         if (posts.homePageHeaderPosts != null) {
           for (int i = 0; i < posts.homePageHeaderPosts.length; i++) {
-            hypercordApi.ApiClient client = hypercordApi.ApiClient();
-
               postsToDisplay.add(MainPagePost(
                 posts.homePageHeaderPosts[i].title,
                 "24-4-2003",
