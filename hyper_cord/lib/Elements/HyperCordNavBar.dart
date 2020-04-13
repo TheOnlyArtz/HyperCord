@@ -5,6 +5,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:hyper_cord/Pages/MainPage.dart';
+import 'package:hyper_cord/Pages/ProfilePage.dart';
 import 'package:hyper_cord/state/app_state.dart';
 import 'package:redux/redux.dart';
 
@@ -59,7 +60,7 @@ class _HyperCordNavBarState extends State<HyperCordNavBar> {
                 Scaffold(),
                 Scaffold(),
                 Scaffold(),
-                Scaffold(),
+                ProfilePage(widget.store),
               ],
               onPageChanged: (int index) {
                 setState(() {

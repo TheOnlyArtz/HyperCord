@@ -82,23 +82,6 @@ class _HyperCordBarState extends State<HyperCordBar> {
 
                   }),
               ),
-              IconButton(
-                  icon: ClipOval(
-                    child: Image.network(
-                      "https://cdn.discordapp.com/attachments/590173552599236608/698613632526712832/unknown.png",
-                      height: 25,
-                      width: 25,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  onPressed: () {
-                    if (widget.shift == false) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProfilePage(widget.store)));
-                    }
-                  }),
               Expanded(
                 child: Container(),
                 flex: 20,

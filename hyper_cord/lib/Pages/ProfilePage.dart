@@ -24,7 +24,6 @@ class _ProfilePageState extends State<ProfilePage> {
           body: CustomScrollView(
             slivers: <Widget>[
               HyperCordBar(widget.store,
-                shift: true,
               ),
               // Container(
               //   width: 50,
