@@ -25,9 +25,13 @@ class _MainPagePostState extends State<MainPagePost> {
           child: Stack(
             children: <Widget>[
               Container(
-                child: ClipRRect(
+                child:ClipRRect(child: Image(image: CachedNetworkImageProvider(widget.imagePath)),
+                borderRadius: BorderRadius.circular(25.0)),
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25.0),
-                  child: Image(image: CachedNetworkImageProvider(widget.imagePath))
+                  boxShadow: [
+                    BoxShadow(color: Colors.black, offset: Offset(-5, 5))
+                  ],
                 ),
               ),
               Positioned(
