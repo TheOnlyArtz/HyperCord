@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:hyper_cord/rest/thread.dart';
 import 'package:yaml/yaml.dart';
 import 'package:http/http.dart' as http;

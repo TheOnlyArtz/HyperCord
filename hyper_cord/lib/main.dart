@@ -6,6 +6,7 @@ import 'package:hyper_cord/state/app_state.dart';
 import 'package:hyper_cord/state/middleware.dart';
 import 'package:hyper_cord/state/reducers.dart';
 import 'package:redux/redux.dart';
+import 'package:splashscreen/splashscreen.dart';
 
 void main() {
   final store = new Store<HypercordAppState>(
@@ -46,7 +47,21 @@ class _PagesState extends State<Pages> {
             theme: ThemeData(
               primaryColor: Color.fromRGBO(39, 46, 72, 1),
             ),
-            home: HyperCordNavBar(widget.store)
+            home: SplashScreen(
+              seconds: 4,
+              navigateAfterSeconds: HyperCordNavBar(widget.store),
+              backgroundColor: Color(0xff272E48),
+              loaderColor: Colors.red,
+              image: Image.asset("assets/images/logo-big.gif", fit: BoxFit.fitWidth, ),
+              photoSize: 180, 
+              loadingText: Text(
+                "...רק רגע",
+                style: TextStyle(
+                  fontFamily: "Roboto",
+                  color: Colors.white
+                )
+              ),
+            )
         // home: MainPage(),
           ); 
         } 
