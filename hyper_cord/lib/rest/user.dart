@@ -41,7 +41,6 @@ class TUser {
   int reactionScore;
   String username;
   bool isStaff;
-
   TUser.fromJson(Map<String, dynamic> json)
     : about = json["about"],
       avatarUrls = json["avatar_urls"],
@@ -65,6 +64,7 @@ class TUser {
       interactionWatchState = json["interaction_watch_state"],
       isAdmin = json["is_admin"],
       isBanned = json["is_banned"],
+      userTitle = json["user_title"],
       isDiscouraged = json["is_discouraged"],
       isFollowed = json["is_followed"],
       isIgnored = json["is_ignored"],

@@ -25,7 +25,7 @@ class _MainPagePostState extends State<MainPagePost> {
           child: Stack(
             children: <Widget>[
               Container(
-                child:ClipRRect(
+                child: ClipRRect(
                   child: Stack(children: <Widget>[
                     Image(image: CachedNetworkImageProvider(widget.imagePath), width: 400, height: 200, fit: BoxFit.fill,),
                       Container(width: 400, height: 200, decoration: BoxDecoration(
@@ -50,13 +50,27 @@ class _MainPagePostState extends State<MainPagePost> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25.0),
                   boxShadow: [
-                    BoxShadow(color: Colors.black, offset: Offset(-5, 5))
+                    BoxShadow(color: Colors.black, offset: Offset(-5, 5), blurRadius: 9)
                   ],
                 ),
               ),
+              // Positioned(
+              //   top: 130,
+              //   child: SizedBox(
+              //     width: 400,
+              //     height: 80,
+              //     child: Container(
+              //       decoration: BoxDecoration(
+              //        color: Colors.black45
+              //       )
+              //     ),
+
+              //   ),
+              // ),
+
               Positioned(
                 child: SafeArea(
-                  child: Container(width: 300, child:
+                  child: Container(width: 370, child:
                     Text(
                       widget.title,
                       overflow: TextOverflow.fade,
@@ -72,7 +86,7 @@ class _MainPagePostState extends State<MainPagePost> {
                 child: Text(
                   widget.date + "-" + widget.category,
                   textDirection: TextDirection.rtl,
-                  style: TextStyle(color: Colors.white, fontSize: 12),
+                  style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
                 ),
                 bottom: 5,
                 right: 10,
