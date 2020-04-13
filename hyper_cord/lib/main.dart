@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:hyper_cord/Elements/HyperCordNavBar.dart';
-import 'package:hyper_cord/Pages/MainPage.dart';
 import 'package:hyper_cord/state/actions.dart';
 import 'package:hyper_cord/state/app_state.dart';
 import 'package:hyper_cord/state/middleware.dart';
@@ -36,13 +36,22 @@ class _PagesState extends State<Pages> {
   @override
   Widget build(BuildContext context) {
     //SystemChrome.setEnabledSystemUIOverlays([]);
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: Color.fromRGBO(39, 46, 72, 1),
-      ),
-      home: HyperCordNavBar(widget.store)
-      // home: MainPage(),
+    return StoreProvider(store: widget.store, 
+    
+      child: StoreConnector<HypercordAppState, HypercordAppState>(
+        converter: (store) => store.state,
+        builder: (context, data) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              primaryColor: Color.fromRGBO(39, 46, 72, 1),
+            ),
+            home: HyperCordNavBar(widget.store)
+        // home: MainPage(),
+          ); 
+        } 
+        
+        )
     );
   }
 }

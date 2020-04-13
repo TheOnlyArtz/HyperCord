@@ -1,13 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hyper_cord/Elements/HyperCordAppBar.dart';
 import 'package:hyper_cord/Elements/MainPagePost.dart';
-import 'package:hyper_cord/Elements/HyperCordNavBar.dart';
 import 'package:hyper_cord/rest/client.dart' as hypercordApi;
-import 'package:hyper_cord/rest/thread.dart';
 import 'package:hyper_cord/state/app_state.dart';
 import 'package:redux/redux.dart';
 

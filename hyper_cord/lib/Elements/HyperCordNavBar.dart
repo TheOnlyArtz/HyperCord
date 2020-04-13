@@ -24,9 +24,7 @@ class _HyperCordNavBarState extends State<HyperCordNavBar> {
   @override
   Widget build(BuildContext context) {
     final _pageController = PageController();
-
-    return new StoreProvider(store: widget.store,
-      child: StoreConnector<HypercordAppState, HypercordAppState>(
+      return StoreConnector<HypercordAppState, HypercordAppState>(
         converter: (store) => store.state,
         builder: (context, list) {
           return Scaffold(
@@ -75,7 +73,6 @@ class _HyperCordNavBarState extends State<HyperCordNavBar> {
           );
 
         }
-      )
     );
   }
 }
