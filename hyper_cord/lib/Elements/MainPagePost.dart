@@ -1,13 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:hyper_cord/Pages/MainPostPage.dart';
+import 'package:hyper_cord/rest/article.dart';
+import 'package:hyper_cord/state/app_state.dart';
+import 'package:redux/redux.dart';
 
 class MainPagePost extends StatefulWidget {
-  final String date;
-  final String title;
-  final String imagePath;
-  final String category;
+  final Article article;
+  final Store<HypercordAppState> store;
+  // final String date;
+  // final String title;
+  // final String imagePath;
+  // final String category;
 
-  MainPagePost(this.title, this.date, this.category, this.imagePath, {Key key})
+  MainPagePost(this.article, this.store, {Key key})
       : super(key: key);
 
   @override
@@ -20,14 +26,20 @@ class _MainPagePostState extends State<MainPagePost> {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: GestureDetector(
-        onTap: (){},
+        onTap: (){
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context) {
+              return MainPostPage(widget.article, widget.store);
+            }
+          ));
+        },
         child: Container(
           child: Stack(
             children: <Widget>[
               Container(
                 child: ClipRRect(
                   child: Stack(children: <Widget>[
-                    Image(image: CachedNetworkImageProvider(widget.imagePath), width: 400, height: 200, fit: BoxFit.fill,),
+                    Image(image: CachedNetworkImageProvider(widget.article.thumbnailUrl), width: 400, height: 200, fit: BoxFit.fill,),
                       Container(width: 400, height: 200, decoration: BoxDecoration(
                       color: Colors.black26,
                       gradient: LinearGradient(
@@ -72,10 +84,10 @@ class _MainPagePostState extends State<MainPagePost> {
                 child: SafeArea(
                   child: Container(width: 370, child:
                     Text(
-                      widget.title,
+                      widget.article.title,
                       overflow: TextOverflow.fade,
                       textDirection: TextDirection.rtl,
-                      style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   )
                 ),
@@ -84,7 +96,7 @@ class _MainPagePostState extends State<MainPagePost> {
               ),
               Positioned(
                 child: Text(
-                  widget.date + "-" + widget.category,
+                  "GAMING",
                   textDirection: TextDirection.rtl,
                   style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
                 ),
