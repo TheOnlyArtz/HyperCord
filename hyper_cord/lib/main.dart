@@ -45,6 +45,7 @@ class _PagesState extends State<Pages> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
+              fontFamily: 'Assistant',
               primaryColor: Color.fromRGBO(39, 46, 72, 1),
             ),
             home: SplashScreen(

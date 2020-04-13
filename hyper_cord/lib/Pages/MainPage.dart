@@ -6,6 +6,7 @@ import 'package:hyper_cord/rest/client.dart' as hypercordApi;
 import 'package:hyper_cord/state/app_state.dart';
 import 'package:intl/intl.dart';
 import 'package:redux/redux.dart';
+import 'package:hyper_cord/Elements/MainPageSign.dart';
 
 class MainPage extends StatefulWidget {
   final Store<HypercordAppState> store;  
@@ -49,8 +50,9 @@ class _MainPageState extends State<MainPage> {
           body: CustomScrollView(
             slivers: <Widget>[
               HyperCordBar(widget.store),
-              SliverList(
+              SliverList( 
                 delegate: SliverChildListDelegate([
+                  MainPageSign("כתבות אחרונות"),
                   ...postsToDisplay
                 ]),
               )

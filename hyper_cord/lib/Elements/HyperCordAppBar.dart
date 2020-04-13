@@ -30,7 +30,7 @@ class _HyperCordBarState extends State<HyperCordBar> {
           return SliverAppBar(
             elevation: 10,
             backgroundColor: Theme.of(context).primaryColor,
-            expandedHeight: 250,
+            expandedHeight: 200,
             flexibleSpace: FlexibleSpaceBar(
               background: WavyHeaderImage(),
             ),
@@ -77,9 +77,6 @@ class _HyperCordBarState extends State<HyperCordBar> {
                           MaterialPageRoute(
                               builder: (context) => Scaffold()));
                     }
-                    
-
-
                   }),
               ),
               Expanded(
@@ -109,21 +106,11 @@ class WavyHeaderImage extends StatelessWidget {
       textDirection: TextDirection.rtl,
       children: <Widget>[
         ClipPath(
-          child: ShaderMask(
-              shaderCallback: (Rect bounds) {
-                return LinearGradient(
-                  colors: [
-                    Color.fromRGBO(77, 9, 24, 1),
-                    Color.fromRGBO(79, 55, 172, 1)
-                  ],
-                ).createShader(bounds);
-              },
-              child: Image.network(
-                'https://i.imgur.com/OEc5ZuI.jpg?1',
+          child:  Image.network(
+                'https://hypercord.co.il/app/bg.jpg',
                 fit: BoxFit.cover,
-                height: 250,
+                height: 200,
               ),
-              blendMode: BlendMode.color),
           clipper: BottomWaveClipper(),
         ),
       ],
