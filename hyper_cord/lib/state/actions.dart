@@ -1,15 +1,15 @@
-import 'package:hyper_cord/rest/thread.dart';
+import 'package:hyper_cord/rest/article.dart';
 
 class FetchMainPagePostsAction {
 }
 
 class FetchMainPagePostsSucceededAction {
-  final List<TThread> fetchedPosts;
+  final List<Article> fetchedPosts;
 
   FetchMainPagePostsSucceededAction(this.fetchedPosts);
 }
 
 class FetchMainPagePostsFailedAction {
-  final Exception error;
+  final dynamic error;
   FetchMainPagePostsFailedAction(this.error);
 }

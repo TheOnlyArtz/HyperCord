@@ -1,5 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
+import 'package:hyper_cord/rest/article.dart';
 import 'package:hyper_cord/rest/thread.dart';
+import 'package:mysql1/mysql1.dart';
 import 'package:yaml/yaml.dart';
 import 'package:http/http.dart' as http;
 import './utils.dart';
@@ -16,13 +21,16 @@ Function getMember(http.Client object, String name) {
 class ApiClient {
   final client = http.Client();
   String superUserKey = "";
+  String dbPass = "";
+  String dbUser = "";
+
   /*
   * Sends off a request to hypercord.co.il's API 
   * with a given method, endpoint and body if specified.
   */
   Future<http.Response> request(String method, String endpoint, [String body]) async {
     Map<String, String> headers = {
-      "XF-Api-Key": this.superUserKey,
+      "XF-Api-Key": "P4wdWwlJmd5OXVXOwIfXEqd5kj6Z77gw",
       "XF-Api-User": "1",
       "Content-Type": "application/x-www-form-urlencoded"
     };
@@ -38,7 +46,6 @@ class ApiClient {
   }
 
   Future<http.Response> get(String endpoint) {
-    print("EXECUTING GET");
     return request("GET", endpoint);
   }
 
@@ -46,34 +53,67 @@ class ApiClient {
     return request("POST", endpoint, getQueryString(body));
   }
 
-  Future<List<TThread>> getHomePagePosts() async {
+  Future<List<Article>> getHomePagePosts() async {
+    var settings = new ConnectionSettings(
+      host: '185.145.203.195', 
+      port: 3306,
+      user: 'cameramy_rq1',
+      password: 'V=p_KS{!sy*H',
+      db: 'cameramy_rq1'
+    );
+
     try {
-      var res = await get("/threads");
-      var json = jsonDecode(res.body);
-      List<TThread> list = parseThreadsArray(json["threads"]);
+      var conn = await MySqlConnection.connect(settings);
+      Results results = await(conn.query("SELECT article_id, category_id, user_id, article_state, message, publish_date, reaction_score, cover_image_id, title, username FROM xf_xa_ams_article ORDER BY article_id DESC LIMIT 3"));
+      List<Article> list = parseArticlesArray(results);
+
+      conn.close();
+
+      for (int i = 0; i < list.length; i++) {
+        var url = await getAttachmentUrl(list[i].coverImageId);
+
+        list[i].setThumbnailUrl(url);
+      }
 
       return list;
     } catch (e) {
+      print(e);
       throw e;
     }
   }
 
-  List<TThread> parseThreadsArray(List<dynamic> arr) {
-    List<TThread> result = List<TThread>();
+  List<Article> parseArticlesArray(Results arr) {
+    List<Article> result = List<Article>();
 
-    for (final s in arr) {
-      result.add(TThread.fromJson(s));
+    for (final row in arr) {
+      result.add(Article.fromList(row));
     }
 
     return result;
   }
 
-  ApiClient() {
-    // File config = new File("../../../private/config.yaml");
-    // String yamlString = config.readAsStringSync();
-    // Map yaml = loadYaml(yamlString);
-
-    // this.superUserKey = yaml["super-user-token"];
-    this.superUserKey = "P4wdWwlJmd5OXVXOwIfXEqd5kj6Z77gw";
+  Future<String> getAttachmentUrl(int id) async {
+    http.Response res = await get("/attachments/$id");
+    var json = jsonDecode(res.body);
+    return json["attachment"]["thumbnail_url"];
   }
+
+  ApiClient() {
+    // loadConfig();
+  }
+    
+  // void loadConfig() async {
+  //   WidgetsFlutterBinding.ensureInitialized();
+  //   try {
+  //     String s = await rootBundle.loadString("private/config.yaml");
+  //     Map yaml = loadYaml(s);
+  //     this.superUserKey = yaml["super-user-token"];
+  //     this.dbPass = yaml["db-pass"];
+  //     this.dbUser = yaml["db-user"];
+  //   } catch (e){
+  //     print(e);
+  //     throw e;
+  //   }
+
+  // }
 }

@@ -1,6 +1,5 @@
-import 'package:http/http.dart';
+import 'package:hyper_cord/rest/article.dart';
 import 'package:hyper_cord/rest/client.dart';
-import 'package:hyper_cord/rest/thread.dart';
 import 'package:hyper_cord/state/actions.dart';
 import 'package:redux/redux.dart';
 
@@ -10,10 +9,9 @@ void fetchHomePagePostsMiddleware(Store<HypercordAppState> store, action, NextDi
   if (action is FetchMainPagePostsAction) {
     final client = ApiClient();
 
-    client.getHomePagePosts().then((List<TThread> posts) {
+    client.getHomePagePosts().then((List<Article> posts) {
       store.dispatch(new FetchMainPagePostsSucceededAction(posts));
     }).catchError((error) {
-      print(error);
       store.dispatch(new FetchMainPagePostsFailedAction(error));
     });
   }

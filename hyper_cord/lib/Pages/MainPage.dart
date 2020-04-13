@@ -31,14 +31,27 @@ class _MainPageState extends State<MainPage> {
       builder: (context, posts) {
         List<Widget> postsToDisplay = List<Widget>();
         if (posts.homePageHeaderPosts != null) {
-          for (int i = 0; i < 3; i++) {
-            print(posts.homePageHeaderPosts[i].username);
-            postsToDisplay.add(MainPagePost(
-              posts.homePageHeaderPosts[i].title,
-              "24-4-2003",
-              "GAMING",
-              "https://hypercord.co.il/ams/valorant-משחק-חדש-שמפציץ-בצופים-חדשים-בטוויץ.32/cover-image.png"
-            ));
+          for (int i = 0; i < posts.homePageHeaderPosts.length; i++) {
+            hypercordApi.ApiClient client = hypercordApi.ApiClient();
+
+              postsToDisplay.add(MainPagePost(
+                posts.homePageHeaderPosts[i].title,
+                "24-4-2003",
+                "GAMING",
+                posts.homePageHeaderPosts[i].thumbnailUrl
+              ));
+
+            // client.getAttachmentUrl(posts.homePageHeaderPosts[i].coverImageId).then((value) => {
+            //   print(value),
+            //   postsToDisplay.add(MainPagePost(
+            //     posts.homePageHeaderPosts[i].title,
+            //     "24-4-2003",
+            //     "GAMING",
+            //     value
+            //   ))
+            // }).catchError((err) => {
+
+            // });
           }
         }
 

@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:hyper_cord/rest/thread.dart';
+import 'package:hyper_cord/rest/article.dart';
 
 class HypercordAppState {
-  List<TThread> homePageHeaderPosts;  
+  List<Article> homePageHeaderPosts;  
   bool isFetching = false;
-  Exception error;
+  dynamic error;
 
   HypercordAppState({
     this.homePageHeaderPosts,
