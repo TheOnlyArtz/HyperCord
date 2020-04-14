@@ -46,7 +46,7 @@ class _PagesState extends State<Pages> {
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               fontFamily: 'Assistant',
-              primaryColor: Color.fromRGBO(39, 46, 72, 1),
+              primaryColor: Color(0xff272E48),
             ),
             home: SplashScreen(
               seconds: 4,
