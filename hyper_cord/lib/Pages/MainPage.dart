@@ -30,6 +30,38 @@ class _MainPageState extends State<MainPage> {
     return new StoreConnector<HypercordAppState, HypercordAppState>(
         converter: (store) => store.state,
         builder: (context, posts) {
+          Map<String, List<GestureDetector>> forumList =
+              Map<String, List<GestureDetector>>();
+          List<dynamic> results = [];
+
+          widget.store.state.homePageNodes.forEach((element) {
+            if (element.typeId == "Forum") {
+              if (forumList[element.parentNodeId.toString()] == null) {
+                forumList[element.parentNodeId.toString()] =
+                    List<GestureDetector>();
+              }
+              forumList[element.parentNodeId.toString()].add(GestureDetector(
+                onTap: () {
+                  Navigator.pop(context, element);
+                },
+                child: ForumNode(element.title, 0, 0, "משחקים ממלצים", "aaa",
+                    Icons.games, "14/04/2020", element.nodeIcon),
+              ));
+            }
+          });
+
+          widget.store.state.homePageNodes.forEach((element) {
+            if (element.typeId == "Category") {
+              results.add(Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: MainPageSign(element.title)));
+
+              forumList[element.id.toString()].forEach((value) {
+                results.add(value);
+              });
+            }
+          });
+
           List<Widget> postsToDisplay = List<Widget>();
           if (posts.homePageHeaderPosts != null) {
             for (int i = 0; i < posts.homePageHeaderPosts.length; i++) {
@@ -47,13 +79,8 @@ class _MainPageState extends State<MainPage> {
                   delegate: SliverChildListDelegate([
                     MainPageSign("כתבות אחרונות"),
                     ...postsToDisplay,
-                    MainPageSign("פורומים כלליים"),
-                    ForumNode("דיבורים",0,0,"משחקים ממלצים","aaa",Icons.games,"14/04/2020","https://media.discordapp.net/attachments/352484989847207947/696658884596596766/unknown.png"),
-                    MainPageSign("פורומי קהילות משחק"),
-                    MainPageSign("פורומי גיימינג"),
-                    MainPageSign("פורומי משחקי מובייל"),
-                    MainPageSign("פורומי חומרה"),
-                  ]),
+                    ...results
+                    ]),
                 )
               ],
             ),
