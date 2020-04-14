@@ -66,19 +66,6 @@ class _MainPagePostState extends State<MainPagePost> {
                   ],
                 ),
               ),
-              // Positioned(
-              //   top: 130,
-              //   child: SizedBox(
-              //     width: 400,
-              //     height: 80,
-              //     child: Container(
-              //       decoration: BoxDecoration(
-              //        color: Colors.black45
-              //       )
-              //     ),
-
-              //   ),
-              // ),
 
               Positioned(
                 child: SafeArea(
@@ -87,7 +74,7 @@ class _MainPagePostState extends State<MainPagePost> {
                       widget.article.title,
                       overflow: TextOverflow.fade,
                       textDirection: TextDirection.rtl,
-                      style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold, shadows: [Shadow(color: Colors.black, offset: Offset(2,2))]),
                     ),
                   )
                 ),
@@ -98,7 +85,7 @@ class _MainPagePostState extends State<MainPagePost> {
                 child: Text(
                   "GAMING",
                   textDirection: TextDirection.rtl,
-                  style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold, shadows: [Shadow(color: Colors.black, offset: Offset(2,2))]),
                 ),
                 bottom: 5,
                 right: 10,

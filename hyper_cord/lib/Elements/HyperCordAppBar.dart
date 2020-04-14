@@ -133,7 +133,7 @@ class BottomWaveClipper extends CustomClipper<Path> {
   }
 
   @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
 
 class BottomWaveClipper2 extends CustomClipper<Path> {
@@ -150,6 +150,6 @@ class BottomWaveClipper2 extends CustomClipper<Path> {
     return path;
   }
   @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
 
