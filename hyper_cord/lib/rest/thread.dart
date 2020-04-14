@@ -13,7 +13,7 @@ class TThread {
   bool canSoftDelete;
   bool canHardDelete;
   bool canViewAttachments;
-  TNode forum;
+  TForum forum;
   int threadId;
   int nodeId;
   String title;
@@ -47,7 +47,7 @@ class TThread {
     canSoftDelete = json["can_soft_delete"];
     canHardDelete = json["can_hard_delete"];
     canViewAttachments = json["can_view_attachments"];
-    forum =json["Forum"] != null ? TNode.fromJson(json["Forum"]) : null;// TODO
+    forum = json["Forum"] != null ? TForum.fromJson(json["Forum"]) : null;// TODO
     threadId = json["thread_id"];
     nodeId = json["node_id"];
     title = json["title"];
@@ -70,7 +70,7 @@ class TThread {
   }
 }
 
-class TNode {
+class TForum {
   List<dynamic> breadcrumbs;
   Map<String, dynamic> typeData;
   int nodeId;
@@ -82,7 +82,7 @@ class TNode {
   int displayOrder;
   bool displayInList;
 
-  TNode.fromJson(Map<String, dynamic> json) {
+  TForum.fromJson(Map<String, dynamic> json) {
     breadcrumbs = json["breadcrumbs"];
     nodeId = json["node_id"];
     title = json["title"];
@@ -92,6 +92,24 @@ class TNode {
     parentNodeId = json["parent_node_id"];
     displayOrder = json["display_order"];
     displayInList = json["display_in_list"];
+  }
+}
+
+class TNode {
+  int id;
+  String title;
+  String description;
+  String typeId; //BLOB
+  int parentNodeId;
+  String nodeIcon;
+
+  TNode.fromList(List<dynamic> data) {
+    id = data[0];
+    title = data[1];
+    description = data[2].toString();
+    typeId = data[3].toString();
+    parentNodeId = data[4];
+    nodeIcon = data[5];
   }
 }
 

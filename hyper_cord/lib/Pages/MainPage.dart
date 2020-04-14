@@ -47,7 +47,12 @@ class _MainPageState extends State<MainPage> {
               SliverList( 
                 delegate: SliverChildListDelegate([
                   MainPageSign("כתבות אחרונות"),
-                  ...postsToDisplay
+                  ...postsToDisplay,
+                  MainPageSign("פורומים כלליים"),
+                  MainPageSign("פורומי קהילות משחק"),
+                  MainPageSign("פורומי גיימינג"),
+                  MainPageSign("פורומי משחקי מובייל"),
+                  MainPageSign("פורומי חומרה"),
                 ]),
               )
             ],

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:hyper_cord/rest/article.dart';
+import 'package:hyper_cord/rest/thread.dart';
 import 'package:mysql1/mysql1.dart';
 import 'package:yaml/yaml.dart';
 import 'package:http/http.dart' as http;
@@ -19,6 +20,42 @@ class ApiClient {
   String superUserKey = "";
   String dbPass = "";
   String dbUser = "";
+  List<int> nodeIds = [
+    23,
+    12,
+    2,
+    10,
+    61,
+    23,
+    12,
+    67,
+    11,
+    9,
+    55,
+    6,
+    24,
+    27,
+    5,
+    38,
+    17,
+    18,
+    22,
+    32,
+    35,
+    36,
+    37,
+    25,
+    26,
+    14,
+    15
+  ];
+
+  var settings = new ConnectionSettings(
+      host: '185.145.203.195',
+      port: 3306,
+      user: 'cameramy_rq1',
+      password: 'V=p_KS{!sy*H',
+      db: 'cameramy_rq1');
 
   /*
   * Sends off a request to hypercord.co.il's API 
@@ -51,13 +88,6 @@ class ApiClient {
   }
 
   Future<List<Article>> getHomePagePosts() async {
-    var settings = new ConnectionSettings(
-        host: '185.145.203.195',
-        port: 3306,
-        user: 'cameramy_rq1',
-        password: 'V=p_KS{!sy*H',
-        db: 'cameramy_rq1');
-
     try {
       var conn = await MySqlConnection.connect(settings);
       Results results = await (conn.query(
@@ -77,6 +107,29 @@ class ApiClient {
       print(e);
       throw e;
     }
+  }
+
+  Future<List<TNode>> getHomePageNodes() async {
+    List<TNode> nodes = [];
+    try {
+
+      for (int i = 0; i < nodeIds.length; i++) {
+        var conn = await MySqlConnection.connect(settings);
+        Results results = await(conn.query(
+          "SELECT node_id, title, description, node_type_id, parent_node_id, node_icon FROM xf_node"
+        ));
+
+        for (var row in results) {
+          nodes.add(TNode.fromList(row));
+        }
+      }
+
+    } catch (e) {
+      print(e);
+      throw e;
+    }
+
+    return nodes;
   }
 
   List<Article> parseArticlesArray(Results arr) {

@@ -6,7 +6,11 @@ import 'actions.dart';
 
 HypercordAppState appReducer(HypercordAppState state, dynamic action) {
   HypercordAppState newState = HypercordAppState();
+
+  print(action);
   if (action is FetchMainPagePostsAction) {
+    print("BLAAA");
+
     return new HypercordAppState(
       homePageHeaderPosts: state.homePageHeaderPosts,
       isFetching: true,
@@ -24,6 +28,27 @@ HypercordAppState appReducer(HypercordAppState state, dynamic action) {
       homePageHeaderPosts: const [],
       isFetching: false,
       error: action.error // provice the UI with error
+    );
+  } else if (action is FetchMainPageNodesAction) {
+    return new HypercordAppState(
+      homePageHeaderPosts: state.homePageHeaderPosts,
+      homePageForums: state.homePageForums, 
+      isFetching: true,
+      error: null // remove previous errors we might have
+    );
+  } else if (action is FetchMainPageNodesSucceededAction) {
+    return new HypercordAppState(
+      homePageHeaderPosts: state.homePageHeaderPosts,
+      homePageForums: action.fetchedNodes, 
+      isFetching: false,
+      error: null // remove previous errors we might have
+    );
+  } else if (action is FetchMainPageNodesFailedAction) {
+    return new HypercordAppState(
+      homePageHeaderPosts: state.homePageHeaderPosts,
+      homePageForums: const [], 
+      isFetching: false,
+      error: action.error // remove previous errors we might have
     );
   }
 
