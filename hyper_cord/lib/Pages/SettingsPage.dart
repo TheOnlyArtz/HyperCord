@@ -25,11 +25,11 @@ class _SettingsPageState extends State<SettingsPage> {
               slivers: <Widget>[
                 HyperCordBar(
                   widget.store,
+                  useWave2: true,
                 ),
               ],
             ),
           );
-        }
-    );
+        });
   }
 }

@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hyper_cord/Pages/ProfilePage.dart';
 import 'package:hyper_cord/state/app_state.dart';
 import 'package:redux/redux.dart';
 
@@ -11,9 +10,11 @@ class HyperCordBar extends StatefulWidget {
 
   final bool
       shift; // this shifts the buttons to the right to leave space for the return button.
+      final bool useWave2;
   HyperCordBar(
     this.store, {
     this.shift: false,
+    this.useWave2: false,
     Key key,
   }) : super(key: key);
 
@@ -32,7 +33,14 @@ class _HyperCordBarState extends State<HyperCordBar> {
             backgroundColor: Theme.of(context).primaryColor,
             expandedHeight: 200,
             flexibleSpace: FlexibleSpaceBar(
-              background: WavyHeaderImage(),
+              background: ClipPath(
+          child:  Image.network(
+                'https://hypercord.co.il/app/bg.jpg',
+                fit: BoxFit.cover,
+                height: 200,
+              ),
+          clipper: widget.useWave2 ? BottomWaveClipper2() : BottomWaveClipper(),
+        ),
             ),
             actions: <Widget>[
               this.widget.shift
@@ -99,24 +107,6 @@ class _HyperCordBarState extends State<HyperCordBar> {
   }
 }
 
-class WavyHeaderImage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      textDirection: TextDirection.rtl,
-      children: <Widget>[
-        ClipPath(
-          child:  Image.network(
-                'https://hypercord.co.il/app/bg.jpg',
-                fit: BoxFit.cover,
-                height: 200,
-              ),
-          clipper: BottomWaveClipper(),
-        ),
-      ],
-    );
-  }
-}
 
 class BottomWaveClipper extends CustomClipper<Path> {
   @override
@@ -143,5 +133,23 @@ class BottomWaveClipper extends CustomClipper<Path> {
   }
 
   @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }
+
+class BottomWaveClipper2 extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+    path.lineTo(0, size.height);
+    path.quadraticBezierTo(
+        size.width / 4, size.height - 40, size.width / 2, size.height - 20);
+    path.quadraticBezierTo(
+        3 / 4 * size.width, size.height, size.width, size.height - 20);
+    path.lineTo(size.width, 0);
+
+    return path;
+  }
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
+}
+
