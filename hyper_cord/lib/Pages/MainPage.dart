@@ -34,42 +34,45 @@ class _MainPageState extends State<MainPage> {
               Map<String, List<GestureDetector>>();
           List<dynamic> results = [];
 
-          widget.store.state.homePageNodes.forEach((element) {
-            if (element.typeId == "Forum") {
-              if (forumList[element.parentNodeId.toString()] == null) {
-                forumList[element.parentNodeId.toString()] =
-                    List<GestureDetector>();
+          if (widget.store.state.homePageNodes != null) {
+            widget.store.state.homePageNodes.forEach((element) {
+              if (element.typeId == "Forum") {
+                if (forumList[element.parentNodeId.toString()] == null) {
+                  forumList[element.parentNodeId.toString()] =
+                      List<GestureDetector>();
+                }
+                forumList[element.parentNodeId.toString()].add(GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context, element);
+                  },
+                  child: ForumNode(element.title, 0, 0, "משחקים ממלצים", "aaa",
+                      Icons.games, "14/04/2020", element.nodeIcon),
+                ));
               }
-              forumList[element.parentNodeId.toString()].add(GestureDetector(
-                onTap: () {
-                  Navigator.pop(context, element);
-                },
-                child: ForumNode(element.title, 0, 0, "משחקים ממלצים", "aaa",
-                    Icons.games, "14/04/2020", element.nodeIcon),
-              ));
-            }
-          });
+            });
 
-          widget.store.state.homePageNodes.forEach((element) {
-            if (element.typeId == "Category") {
-              results.add(Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: MainPageSign(element.title)));
+            widget.store.state.homePageNodes.forEach((element) {
+              if (element.typeId == "Category") {
+                results.add(Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: MainPageSign(element.title)));
 
-              forumList[element.id.toString()].forEach((value) {
-                results.add(value);
-              });
-            }
-          });
-
-          List<Widget> postsToDisplay = List<Widget>();
-          if (posts.homePageHeaderPosts != null) {
-            for (int i = 0; i < posts.homePageHeaderPosts.length; i++) {
-              postsToDisplay.add(
-                  MainPagePost(posts.homePageHeaderPosts[i], widget.store));
-            }
+                forumList[element.id.toString()].forEach((value) {
+                  results.add(value);
+                });
+              }
+            });
+  
           }
 
+          List<Widget> postsToDisplay = List<Widget>();
+            if (posts.homePageHeaderPosts != null) {
+              for (int i = 0; i < posts.homePageHeaderPosts.length; i++) {
+                postsToDisplay.add(
+                    MainPagePost(posts.homePageHeaderPosts[i], widget.store));
+              }
+          }
+          
           return Scaffold(
             backgroundColor: Theme.of(context).primaryColor,
             body: CustomScrollView(

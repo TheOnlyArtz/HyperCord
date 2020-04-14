@@ -109,7 +109,7 @@ Widget dropDownForumMenu(
                     width: double.infinity,
                     height: 40,
                     decoration: BoxDecoration(
-                        color: Color(0xff0f172d),
+                        color: Color(0xff000003),
                         borderRadius: BorderRadius.circular(10.0)),
                   ),
                 ),
@@ -148,16 +148,16 @@ Widget textForm(
             maxLength: 10000,
             maxLines: maxLines,
             // expands: true,
-            style: TextStyle(fontSize: 20, color: Colors.white),
+            style: TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
             textAlignVertical: TextAlignVertical.center,
             decoration: InputDecoration(
                 filled: true,
-                hintStyle: TextStyle(color: Colors.white, fontSize: 20),
+                hintStyle: TextStyle(color: Colors.grey[600], fontSize: 20),
                 hintText: placeholder,
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                fillColor: Color(0xff0f172d),
+                fillColor: Color(0xffffffff),
                 hoverColor: Colors.transparent),
             cursorColor: Colors.red[700],
             textDirection: TextDirection.ltr,

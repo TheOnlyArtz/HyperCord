@@ -45,9 +45,11 @@ HypercordAppState appReducer(HypercordAppState state, dynamic action) {
       error: null // remove previous errors we might have
     );
   } else if (action is FetchMainPageNodesFailedAction) {
+    print(action.error);
+    print("\n\n\n");
     return new HypercordAppState(
       homePageHeaderPosts: state.homePageHeaderPosts,
-      homePageNodes: List<TNode>(), 
+      homePageNodes: const [], 
       isFetching: false,
       error: action.error // remove previous errors we might have
     );

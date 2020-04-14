@@ -2,8 +2,8 @@ import 'package:hyper_cord/rest/article.dart';
 import 'package:hyper_cord/rest/thread.dart';
 
 class HypercordAppState {
-  List<Article> homePageHeaderPosts;  
-  List<TNode> homePageNodes;
+  List<Article> homePageHeaderPosts = const [];  
+  List<TNode> homePageNodes = const [];
   bool isFetching = false;
   dynamic error;
 
