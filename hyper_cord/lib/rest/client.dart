@@ -20,35 +20,6 @@ class ApiClient {
   String superUserKey = "";
   String dbPass = "";
   String dbUser = "";
-  List<int> nodeIds = [
-    23,
-    12,
-    2,
-    10,
-    61,
-    23,
-    12,
-    67,
-    11,
-    9,
-    55,
-    6,
-    24,
-    27,
-    5,
-    38,
-    17,
-    18,
-    22,
-    32,
-    35,
-    36,
-    37,
-    25,
-    26,
-    14,
-    15
-  ];
 
   var settings = new ConnectionSettings(
       host: '185.145.203.195',
@@ -62,10 +33,10 @@ class ApiClient {
   * with a given method, endpoint and body if specified.
   */
   Future<http.Response> request(String method, String endpoint,
-      [String body]) async {
+      [String body, dynamic user]) async {
     Map<String, String> headers = {
       "XF-Api-Key": "P4wdWwlJmd5OXVXOwIfXEqd5kj6Z77gw",
-      "XF-Api-User": "1",
+      "XF-Api-User": user,
       "Content-Type": "application/x-www-form-urlencoded"
     };
 
@@ -83,8 +54,8 @@ class ApiClient {
     return request("GET", endpoint);
   }
 
-  Future<http.Response> post(String endpoint, Map<String, String> body) {
-    return request("POST", endpoint, getQueryString(body));
+  Future<http.Response> post(String endpoint, Map<String, String> body, dynamic user) {
+    return request("POST", endpoint, getQueryString(body), user);
   }
 
   Future<List<Article>> getHomePagePosts() async {
@@ -112,24 +83,36 @@ class ApiClient {
   Future<List<TNode>> getHomePageNodes() async {
     List<TNode> nodes = [];
     try {
+      var conn = await MySqlConnection.connect(settings);
+      Results results = await (conn.query(
+          "SELECT node_id, title, description, node_type_id, parent_node_id, node_icon FROM xf_node"));
 
-      for (int i = 0; i < nodeIds.length; i++) {
-        var conn = await MySqlConnection.connect(settings);
-        Results results = await(conn.query(
-          "SELECT node_id, title, description, node_type_id, parent_node_id, node_icon FROM xf_node"
-        ));
-
-        for (var row in results) {
-          nodes.add(TNode.fromList(row));
-        }
+      for (var row in results) {
+        nodes.add(TNode.fromList(row));
       }
-
     } catch (e) {
       print(e);
       throw e;
     }
 
     return nodes;
+  }
+
+  // TODO: Maybe send the new post object back, TODO look at user param
+  void postNewThread(
+      Map<String, String> inputs, TNode node, dynamic user) async {
+    try {
+      this.post("/threads", {
+        "title": inputs["title"],
+        "message": inputs["message"],
+        "node_id": node.id.toString()
+      }, "58");
+    } catch (e) {
+      print(e);
+      throw e;
+    }
+
+    return;
   }
 
   List<Article> parseArticlesArray(Results arr) {

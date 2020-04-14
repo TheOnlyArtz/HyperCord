@@ -105,11 +105,11 @@ class TNode {
 
   TNode.fromList(List<dynamic> data) {
     id = data[0];
-    title = data[1];
+    title = data[1].toString();
     description = data[2].toString();
     typeId = data[3].toString();
     parentNodeId = data[4];
-    nodeIcon = data[5];
+    nodeIcon = data[5].toString();
   }
 }
 

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:hyper_cord/rest/thread.dart';
 import 'package:hyper_cord/state/app_state.dart';
 
@@ -9,16 +8,17 @@ HypercordAppState appReducer(HypercordAppState state, dynamic action) {
 
   print(action);
   if (action is FetchMainPagePostsAction) {
-    print("BLAAA");
 
     return new HypercordAppState(
       homePageHeaderPosts: state.homePageHeaderPosts,
+      homePageNodes: state.homePageNodes, 
       isFetching: true,
       error: null // remove previous errors we might have
     );
   } else if (action is FetchMainPagePostsSucceededAction) {
     return new HypercordAppState(
       homePageHeaderPosts: action.fetchedPosts,
+      homePageNodes: state.homePageNodes, 
       isFetching: false,
       // ensure no error exists
       error: null,
@@ -26,27 +26,28 @@ HypercordAppState appReducer(HypercordAppState state, dynamic action) {
   } else if (action is FetchMainPagePostsFailedAction) {
     return HypercordAppState(
       homePageHeaderPosts: const [],
+      homePageNodes: state.homePageNodes, 
       isFetching: false,
       error: action.error // provice the UI with error
     );
   } else if (action is FetchMainPageNodesAction) {
     return new HypercordAppState(
       homePageHeaderPosts: state.homePageHeaderPosts,
-      homePageForums: state.homePageForums, 
+      homePageNodes: state.homePageNodes, 
       isFetching: true,
       error: null // remove previous errors we might have
     );
   } else if (action is FetchMainPageNodesSucceededAction) {
     return new HypercordAppState(
       homePageHeaderPosts: state.homePageHeaderPosts,
-      homePageForums: action.fetchedNodes, 
+      homePageNodes: action.fetchedNodes, 
       isFetching: false,
       error: null // remove previous errors we might have
     );
   } else if (action is FetchMainPageNodesFailedAction) {
     return new HypercordAppState(
       homePageHeaderPosts: state.homePageHeaderPosts,
-      homePageForums: const [], 
+      homePageNodes: List<TNode>(), 
       isFetching: false,
       error: action.error // remove previous errors we might have
     );
